@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Code Quiz</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<body>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <!--stylesheet-->
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Code Quiz</title>
+  </head>
+
+  <body>
     <a href="score.html">View Highscores</a>
 
     <div id="wrapper">
-        <!-- Div for timer -->
-        <div id="currentTime"></div>
-        <!-- Div for quiz content -->
-        <div id="questionsDiv">
-            <h1>Coding Quiz Challenge</h1>
-            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
-                answers
-                will penalize your score/time by ten seconds!</p>
-            <ul id="choicesUl"></ul>
-            <!-- Buttons -->
-            <button id="startTime">Start Quiz</button>
-        </div>
+      <div class="card" id="start-card">
+        <h1>Coding Quiz Challenge</h1>
+        <p>
+          Try to answer the following code-related questions within the time
+          limit. Keep in mind that incorrect answers will penalize your
+          score/time by ten seconds!
+        </p>
+        <!-- Buttons -->
+        <button class="btn btn-primary"id="startTime">Start Quiz</button>
+      </div>
+    </div>
+    <div class="card hide" id="question-card">
+        <h3 class="card-title" id="question-title">Question gies here</h3>
+        <div id="choices-box"></div>
+      <!-- Div for timer -->
 
+      <div id="currentTime"></div>
+      <!-- Div for quiz content -->
+      <div id="questionsDiv"></div>
     </div>
 
-<script src="script.js"></script>
-
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
