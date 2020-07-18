@@ -47,8 +47,11 @@ function startGame() {
 
     questionCard.removeAttribute("class", "hide");
 
+
     buildQuestionCard()
     startTimer()
+
+
 }
 function buildQuestionCard() {
 var currentQuestion = questions[index]
@@ -66,13 +69,23 @@ var currentQuestion = questions[index]
         choiceBtn.onclick = questionClick;
 
         choicesEL.appendChild(choiceBtn);
+
     })
+    
 }
 
 function questionClick(){
     console.log(this.value);
     index++
     buildQuestionCard()
+    if (this.textContent === currentQuestion.answer) {
+        correctMessage.textContent = "Correct!";
+    }
+    else {
+        correctMessage.textContent = "Wrong answer, you lose 10 seconds from your score.";
+        timeLeft = timeLeft - 10;
+    }
+
 }
 
 function startTimer() {
@@ -84,11 +97,13 @@ function startTimer() {
         (countdownEl.textContent = timeLeft);
         // console.log(timeLeft);
         if (timeLeft === 0) {
+
             endGame();
         }
         // timeLeft--10);
     }, 1000);
     console.log(timeLeft);
+}
 
 
 startButton.addEventListener ('click', startGame);

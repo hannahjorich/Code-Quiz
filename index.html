@@ -16,7 +16,14 @@
   </head>
 
   <body>
-    <a href="score.html">View Highscores</a>
+    <header>
+      <div class="row">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <a class="navbar-brand" id="navbar" href="score.html">View HighScores</a>
+              <div id="currentTime"></div>
+          </nav>
+      </div>
+  </header>
 
     <div id="wrapper">
       <div class="card" id="start-card">
@@ -33,9 +40,6 @@
     <div class="card hide" id="question-card">
         <h3 class="card-title" id="question-title">Question goes here</h3>
         <div id="choices-box"></div>
-      <!-- Div for timer -->
-
-      <div id="currentTime"></div>
       <!-- Div for quiz content -->
       <div id="questionsDiv"></div>
     </div>
