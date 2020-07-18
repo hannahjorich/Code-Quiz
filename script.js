@@ -33,13 +33,13 @@ var score = 0;
 var index = 0;
 
 // declare variables 
-var currentTime = document.querySelector("#currentTime");
 var timer = document.querySelector("#startTime");
 var questionsTitle = document.querySelector("#question-title");
 var wrapper = document.querySelector("#wrapper");
 var startButton = document.getElementById ('startTime');
 var questionCard = document.getElementById ('question-card');
 var choicesEL = document.getElementById ('choices-box');
+var countdownEl = document.querySelector("#currentTime");
 
 function startGame() {
     var startCard = document.getElementById("start-card");
@@ -48,6 +48,7 @@ function startGame() {
     questionCard.removeAttribute("class", "hide");
 
     buildQuestionCard()
+    startTimer()
 }
 function buildQuestionCard() {
 var currentQuestion = questions[index]
@@ -73,13 +74,21 @@ function questionClick(){
     index++
     buildQuestionCard()
 }
-// next step create if else statemens 
-// create a timer attached to a button with a start value of 0 
-// The timer needs to start when the user clicks start quiz 
-// when the timer starts a reverse countdown of 75 happens 
 
-// Store the users choices 
-// When user selects the right answer, textcontent "Correct!"
-// When user selects the right answer, textcontent "Wrong!"
+function startTimer() {
+
+    timeLeft = 75;
+        timerInterval = setInterval(function () {
+        countdownEl.textContent = timeLeft;
+        timeLeft--;
+        (countdownEl.textContent = timeLeft);
+        // console.log(timeLeft);
+        if (timeLeft === 0) {
+            endGame();
+        }
+        // timeLeft--10);
+    }, 1000);
+    console.log(timeLeft);
+
 
 startButton.addEventListener ('click', startGame);
