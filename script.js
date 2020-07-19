@@ -1,5 +1,3 @@
-// how do we start? 
-// Set questions variables with arrays and objects 
 var questions = [
     {
         title: "Commonly used data types DO NOT include:",
@@ -40,6 +38,9 @@ var startButton = document.getElementById ('startTime');
 var questionCard = document.getElementById ('question-card');
 var choicesEL = document.getElementById ('choices-box');
 var countdownEl = document.querySelector("#currentTime");
+var feedbackEl = document.getElementById("feedback");
+var currentQuestion = questions[index]
+
 
 function startGame() {
     var startCard = document.getElementById("start-card");
@@ -53,8 +54,10 @@ function startGame() {
 
 
 }
+
+
 function buildQuestionCard() {
-var currentQuestion = questions[index]
+    var currentQuestion = questions[index]
 
     questionsTitle.textContent = currentQuestion.title
 
@@ -65,6 +68,7 @@ var currentQuestion = questions[index]
         choiceBtn.setAttribute("class", "choice");
         choiceBtn.setAttribute("value", choice);
         choiceBtn.textContent = choice;
+
 
         choiceBtn.onclick = questionClick;
 
@@ -78,15 +82,24 @@ function questionClick(){
     console.log(this.value);
     index++
     buildQuestionCard()
-    if (this.textContent === currentQuestion.answer) {
-        correctMessage.textContent = "Correct!";
-    }
-    else {
-        correctMessage.textContent = "Wrong answer, you lose 10 seconds from your score.";
-        timeLeft = timeLeft - 10;
-    }
 
+    feedbackEl.setAttribute("class", "feedback");
+    feedbackEl.setAttribute("class", "feedback hide");
+    
+    if (this.textContent === currentQuestion.answer) {
+        feedbackEl.textContent = "Correct!";
+        }
+      else {
+        feedbackEl.textContent = "Wrong!";
+      }
+
+  if (index === questions.length) {
+    quizEnd();
+  } 
 }
+
+
+
 
 function startTimer() {
 
