@@ -29,6 +29,7 @@ var questions = [
 
 var score = 0;
 var index = 0;
+var correct = [];
 
 // declare variables 
 var timer = document.querySelector("#startTime");
@@ -66,19 +67,16 @@ function buildQuestionCard() {
         choiceBtn.setAttribute("class", "choice");
         choiceBtn.setAttribute("value", choice);
         choiceBtn.textContent = choice;
-
+        choicesEL.appendChild(choiceBtn);
         choiceBtn.onclick = questionClick;
 
-        choicesEL.appendChild(choiceBtn);
 
     })
     
 }
 
 function questionClick(){
-    console.log(this.value);
-    index++
-    buildQuestionCard()
+    // console.log(this.value);
     if (this.value === questions[index].answer) {
         console.log("correct");
         feedbackEl.setAttribute("class", "right");
@@ -91,6 +89,12 @@ function questionClick(){
         feedbackEl.setAttribute("style", "visibility: visible;");
         feedbackEl.textContent = "Wrong"; // "Wrong" is displayed on the screen
         // secondsLeft -= 10; // 10 seconds is subtracted from the timer
+      }
+      index++
+      if (index === questions.length) {
+        gameOver();
+      } else {
+        buildQuestionCard();
       }
 }
 
