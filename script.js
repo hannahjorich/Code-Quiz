@@ -32,7 +32,7 @@ var index = 0;
 
 // declare variables 
 var timer = document.querySelector("#startTime");
-var questionsTitle = document.querySelector("#question-title");
+var questionsTitle = document.getElementById('question-title');
 var wrapper = document.querySelector("#wrapper");
 var startButton = document.getElementById ('startTime');
 var questionCard = document.getElementById ('question-card');
@@ -53,14 +53,12 @@ function startGame() {
     startTimer()
 
 
-}
-
 
 function buildQuestionCard() {
     var currentQuestion = questions[index]
 
-    questionsTitle.textContent = currentQuestion.title
-
+        questionsTitle.textContent = currentQuestion.title
+    
     choicesEL.innerHTML = "";
 
     currentQuestion.choices.forEach(function(choice, i) {
@@ -68,7 +66,6 @@ function buildQuestionCard() {
         choiceBtn.setAttribute("class", "choice");
         choiceBtn.setAttribute("value", choice);
         choiceBtn.textContent = choice;
-
 
         choiceBtn.onclick = questionClick;
 
@@ -82,20 +79,19 @@ function questionClick(){
     console.log(this.value);
     index++
     buildQuestionCard()
-
-    feedbackEl.setAttribute("class", "feedback");
-    feedbackEl.setAttribute("class", "feedback hide");
-    
-    if (this.textContent === currentQuestion.answer) {
-        feedbackEl.textContent = "Correct!";
-        }
-      else {
-        feedbackEl.textContent = "Wrong!";
+    if (this.value === questions[index].answer) {
+        console.log("correct");
+        feedbackEl.setAttribute("class", "right");
+        feedbackEl.setAttribute("style", "visibility: visible;");
+        feedbackEl.textContent = "Correct!"; // "Right!" is displayed on the screen
+        // secondsLeft += 10; // 10 seconds is added to the timer
+    } else {
+        console.log("wrong");
+        feedbackEl.setAttribute("class", "wrong");
+        feedbackEl.setAttribute("style", "visibility: visible;");
+        feedbackEl.textContent = "Wrong"; // "Wrong" is displayed on the screen
+        // secondsLeft -= 10; // 10 seconds is subtracted from the timer
       }
-
-  if (index === questions.length) {
-    quizEnd();
-  } 
 }
 
 
@@ -118,5 +114,5 @@ function startTimer() {
     console.log(timeLeft);
 }
 
-
+}
 startButton.addEventListener ('click', startGame);
