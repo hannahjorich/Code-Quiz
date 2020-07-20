@@ -1,51 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    />
-    <!--stylesheet-->
-    <link rel="stylesheet" href="style.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap Styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- CSS Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,600;1,700;1,800&display=swap" rel="stylesheet">
 
     <title>Code Quiz</title>
-  </head>
+</head>
 
   <body>
     <header>
-      <div class="row">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <a class="navbar-brand" id="navbar" href="score.html">View HighScores</a>
-              <div id="currentTime"></div>
-          </nav>
-      </div>
+    <nav class="navbar navbar-dark bg-dark">
+        <h6 class="text-bold text-white" id="high-score-page">High Scores</h6>
+        <h6 class="text-bold text-white">Time Remaining: <span id="timer">75</span></h6>
+    </nav>
   </header>
 
-    <div id="wrapper">
-      <div class="card" id="start-card">
-        <h1>Coding Quiz Challenge</h1>
-        <p>
-          Try to answer the following code-related questions within the time
-          limit. Keep in mind that incorrect answers will penalize your
-          score/time by ten seconds!
-        </p>
-        <!-- Buttons -->
-        <button class="btn btn-primary"id="startTime">Start Quiz</button>
-      </div>
-    </div>
-    <div class="card hide" id="question-card">
-        <h3 class="card-title" id="question-title">Question goes here</h3>
-        <div id="choices-box"></div>
-      <!-- Div for quiz content -->
-      <div id="questionsDiv"></div>
-      
-      <div id="feedback" class="feedback hide"></div>
+    <!-- Start Screen Div -->
+    <div class="container rounded" id="start-screen">
+
+        <!-- Starting Screen: Title of Quiz -->
+        <header>
+            <h1 class="quiz-title">
+                Coding Quiz Challenge!
+            </h1>
+        </header>
+
+        <!-- Description of Quiz -->
+        <div class="startContent">
+            <p>Try to answer the following code-related questions within the time
+              limit. Keep in mind that incorrect answers will penalize your
+              score/time by ten seconds!
+            </p>
+        </div>
+
+        <!-- Start Button -->
+        <div class="row justify-content-center mx-auto">
+            <button id="start-btn" class="btn">Start Quiz</button>
+        </div>
     </div>
 
+    <!-- Question Card Div -->
+    <div class="container question-card" id="question-card">
+
+        <!-- Question -->
+        <header>
+            <h2 id="question-title"> questions go here</h2>
+        </header>
+
+        <!-- Choices -->
+        <div id="choices"></div>
+        <div class="right" id="right-wrong">Correct!</div>
+
+    </div>
+
+    <!--Finished Quiz Div -->
+    <div class="container rounded" id="end-screen">
+
+
+        <header>
+            <h3 id="end-screen-title">
+                All done!
+            </h3>
+        </header>
+
+        <div class="final-score">
+            <h5>Your final score is: <span id="final-score"></span></p>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="text" id="user-initials" placeholder="enter your initials">
+            </div>
+            <button class="col-sm-6 btn" id="initials-submit">Submit</button>
+        </div>
+    </div>
+
+
+    <div class="container rounded" id="high-score-screen">
+
+
+        <header>
+            <h3 id="high-score-title">
+                Highscores
+            </h3>
+        </header>
+
+        <ol class="final-score">
+        </ol>
+
+        <div class="row">
+            <button class="col-sm-5 btn" id="go-back">back</button>
+            <button class="col-sm-5 btn" id="clear-scores">clear</button>
+        </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

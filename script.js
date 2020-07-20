@@ -27,96 +27,154 @@ var questions = [
 
 ];
 
-var score = 0;
+// Variables for quiz
+
+// Start Screen variables
+var startBtn = document.getElementById("start-btn");
+var startScreenEl = document.getElementById("start-screen");
+var questionCard = document.getElementById("question-card");
+var questionTitleEl = document.getElementById("question-title");
+var choicesEl = document.getElementById("choices");
+var rightWrongEl = document.getElementById("right-wrong");
+var buttonsEL = document.getElementById("buttons");
+var endScreen = document.getElementById("end-screen");
+var initialsFormEl = document.getElementById("user-initials");
+var initialsSubmit = document.getElementById("initials-submit")
+var finalScoreEl = document.getElementById("final-score");
+var highScoreScreen = document.getElementById("high-score-screen");
+
+// Timer variable
+var timerDisplay = document.getElementById("timer");
+
+
+// Quiz variables
 var index = 0;
 var correct = [];
+var secondsLeft = 60;
+var timerInterval;
 
-// declare variables 
-var timer = document.querySelector("#startTime");
-var questionsTitle = document.getElementById('question-title');
-var wrapper = document.querySelector("#wrapper");
-var startButton = document.getElementById ('startTime');
-var questionCard = document.getElementById ('question-card');
-var choicesEL = document.getElementById ('choices-box');
-var countdownEl = document.querySelector("#currentTime");
-var feedbackEl = document.getElementById("feedback");
-var currentQuestion = questions[index]
+// starting quiz functions
+function startQuiz() {
+  startScreenEl.setAttribute("style", "display: none;"); // hiding the start screen
+  buildQuestionCard(); // building the question card
+  questionCard.setAttribute("style", "visibility: visible;"); // showing the question card
+  startTimer(); // starting the timer when the button is pressed
+}
 
+// When start button is clicked, the quiz will begin!
+startBtn.addEventListener("click", startQuiz);
 
-function startGame() {
-    var startCard = document.getElementById("start-card");
-    startCard.setAttribute("class", "hide");
-
-    questionCard.removeAttribute("class", "hide");
-
-
-    buildQuestionCard()
-    startTimer()
-
-
-
+// Building the question card
 function buildQuestionCard() {
-    var currentQuestion = questions[index]
+  let currentQuestion = questions[index];
 
-        questionsTitle.textContent = currentQuestion.title
-    
-    choicesEL.innerHTML = "";
+  questionTitleEl.textContent = currentQuestion.title; // Putting each question in the title
 
-    currentQuestion.choices.forEach(function(choice, i) {
-        var choiceBtn = document.createElement("button");
-        choiceBtn.setAttribute("class", "choice");
-        choiceBtn.setAttribute("value", choice);
-        choiceBtn.textContent = choice;
-        choicesEL.appendChild(choiceBtn);
-        choiceBtn.onclick = questionClick;
+  choicesEl.innerHTML = ""; // Creating space inside the 'choices' element
 
-
-    })
-    
+  currentQuestion.choices.forEach(function (choice, i) {
+    const choices = document.createElement("button"); // creating buttons for each choice
+    choices.setAttribute("class", "choice"); // setting class to choice to connect to css styling
+    choices.setAttribute("value", choice); // setting inside value for each
+    choices.textContent = choice; // displaying the text of each value
+    choicesEl.appendChild(choices); // attaching each choice to one another
+    choices.onclick = decisionClick; // registering "click" for user decicision
+  });
 }
 
-function questionClick(){
-    // console.log(this.value);
-    if (this.value === questions[index].answer) {
-        console.log("correct");
-        feedbackEl.setAttribute("class", "right");
-        feedbackEl.setAttribute("style", "visibility: visible;");
-        feedbackEl.textContent = "Correct!"; // "Right!" is displayed on the screen
-        // secondsLeft += 10; // 10 seconds is added to the timer
-    } else {
-        console.log("wrong");
-        feedbackEl.setAttribute("class", "wrong");
-        feedbackEl.setAttribute("style", "visibility: visible;");
-        feedbackEl.textContent = "Wrong"; // "Wrong" is displayed on the screen
-        // secondsLeft -= 10; // 10 seconds is subtracted from the timer
-      }
-      index++
-      if (index === questions.length) {
-        gameOver();
-      } else {
-        buildQuestionCard();
-      }
+// Determining function for user answer picks
+function decisionClick() {
+  // If user chooses the right answer...
+  if (this.value === questions[index].answer) {
+    console.log("correct");
+    rightWrongEl.setAttribute("class", "right");
+    rightWrongEl.setAttribute("style", "visibility: visible;");
+    rightWrongEl.textContent = "Correct!"; // "Correct!" is displayed on the screen
+    secondsLeft += 10; // 10 seconds is added to the timer
+
+    // If user chooses the wrong answer...
+  } else {
+    console.log("wrong");
+    rightWrongEl.setAttribute("class", "wrong");
+    rightWrongEl.setAttribute("style", "visibility: visible;");
+    rightWrongEl.textContent = "Wrong"; // "Wrong" is displayed on the screen
+    secondsLeft -= 10; // 10 seconds is subtracted from the timer
+  }
+  index++;
+  if (index === questions.length) {
+    // if the user answers all of the questions..
+    gameOver(); // ...the game ends...
+  } else {
+    // ...otherwise...
+    buildQuestionCard(); // ...it continues.
+  }
 }
 
-
-
-
+// Timer function
 function startTimer() {
+  timerInterval = setInterval(function () {
+    secondsLeft--; // decrements time left
+    timerDisplay.textContent = secondsLeft; // displays remaining time on screen
 
-    timeLeft = 75;
-        timerInterval = setInterval(function () {
-        countdownEl.textContent = timeLeft;
-        timeLeft--;
-        (countdownEl.textContent = timeLeft);
-        // console.log(timeLeft);
-        if (timeLeft === 0) {
-
-            endGame();
-        }
-        // timeLeft--10);
-    }, 1000);
-    console.log(timeLeft);
+    if (secondsLeft <= 0) {
+      // if the timer is less than or equal to zero...
+      clearInterval(timerInterval); // timer is clearned and...
+      return gameOver(); // ..."Game Over" function is fired.
+    }
+  }, 1000);
 }
 
+// End Quiz Screen
+function gameOver() {
+  questionCard.setAttribute("style", "display: none;"); 
+  endScreen.setAttribute("style", "visibility: visible;"); 
+  clearInterval(timerInterval); 
+  timerDisplay.textContent = 0; 
+  if (secondsLeft < 0) {
+    // preventing the time to go below zero
+    secondsLeft = 0;
+  }
+  finalScoreEl.textContent = secondsLeft; 
 }
-startButton.addEventListener ('click', startGame);
+
+// High Score Screen
+
+initialsSubmit.addEventListener('submit', function(event) {
+  finalScoreEl.innerHTML += '<li>' + initialsFormEl.value + secondsLeft + "</li>";
+  initialsFormEl.value = '';
+  localStorage.setItem('highScoreList', finalScoreEl.innerHtml)
+}, false);
+
+// Check for saved wishlist items
+var saved = localStorage.getItem('highScoreList');
+
+if (saved) {
+  finalScoreEl.innerHTML = saved;
+}
+
+initialsSubmit.addEventListener("click", function() {
+  endScreen.setAttribute("style", "display: none;"); 
+  highScoreScreen.setAttribute("style", "visibility: visible;"); 
+});
+
+let scores = []; 
+
+function saveScore(){
+  const userInitials = initialsFormEl.value; 
+  localStorage.setItem("scores", JSON.stringify(scores));
+
+}
+function buildScoreCard() {
+  
+  finalScoreEl.innerHTML = ""; 
+  
+  finalScoreEl.finalScore.forEach(function (scores, i) {
+    let userScore = userInitials + secondsLeft; 
+    const finalScore = document.createElement("button"); 
+    
+    finalScore.setAttribute("class", "user score"); 
+    finalScore.setAttribute("value", newScore); 
+    finalScore.textContent = newScore; 
+    finalScore.appendChild(userScore); 
+  });
+}
