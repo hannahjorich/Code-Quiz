@@ -145,36 +145,9 @@ initialsSubmit.addEventListener('submit', function(event) {
   localStorage.setItem('highScoreList', finalScoreEl.innerHtml)
 }, false);
 
-// Check for saved wishlist items
-var saved = localStorage.getItem('highScoreList');
-
-if (saved) {
-  finalScoreEl.innerHTML = saved;
-}
+// // Check for saved wishlist items
 
 initialsSubmit.addEventListener("click", function() {
   endScreen.setAttribute("style", "display: none;"); 
   highScoreScreen.setAttribute("style", "visibility: visible;"); 
 });
-
-let scores = []; 
-
-function saveScore(){
-  const userInitials = initialsFormEl.value; 
-  localStorage.setItem("scores", JSON.stringify(scores));
-
-}
-function buildScoreCard() {
-  
-  finalScoreEl.innerHTML = ""; 
-  
-  finalScoreEl.finalScore.forEach(function (scores, i) {
-    let userScore = userInitials + secondsLeft; 
-    const finalScore = document.createElement("button"); 
-    
-    finalScore.setAttribute("class", "user score"); 
-    finalScore.setAttribute("value", newScore); 
-    finalScore.textContent = newScore; 
-    finalScore.appendChild(userScore); 
-  });
-}
