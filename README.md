@@ -33,9 +33,9 @@ The following animation demonstrates the application functionality:
 ### Review
 
 You are required to submit the following for review:
-https://hannahjorich.github.io/Code-Quiz/
 
 * The URL of the functional, deployed application.
+https://hannahjorich.github.io/Code-Quiz/
 
 * The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
 https://github.com/hannahjorich/Code-Quiz
