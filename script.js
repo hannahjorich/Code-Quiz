@@ -140,14 +140,20 @@ function gameOver() {
 // High Score Screen
 
 initialsSubmit.addEventListener('submit', function(event) {
-  finalScoreEl.innerHTML += '<li>' + initialsFormEl.value + secondsLeft + "</li>";
+  event.preventDefault()
+  finalScoreEl.innerHTML += '<li>' + initialsFormEl.value + ' ' + secondsLeft + "</li>";
   initialsFormEl.value = '';
   localStorage.setItem('highScoreList', finalScoreEl.innerHtml)
+  // endScreen.setAttribute("style", "display: none;"); 
+  highScoreScreen.setAttribute("style", "visibility: visible;"); 
 }, false);
 
-// // Check for saved wishlist items
+// Check for saved 
 
-initialsSubmit.addEventListener("click", function() {
-  endScreen.setAttribute("style", "display: none;"); 
-  highScoreScreen.setAttribute("style", "visibility: visible;"); 
-});
+// Grab finalScore.EL + initialsFormEL 
+localStorage.getItem('finalScoreEL')
+
+//pull down the high scores an array and springifyJSON something that can be stored in my local storage 
+
+// use JONparsit change it back to a javascript object and print the values to your high scores div using a for loop 
+
