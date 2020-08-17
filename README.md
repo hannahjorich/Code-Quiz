@@ -12,7 +12,7 @@ SO THAT I can gauge my progress compared to my peers
 
 The following animation demonstrates the application functionality:
 
-![code quiz](./assets/Untitled_ Aug 16, 2020 6_06 PM.gif)
+![home](https://github.com/hannahjorich/Code-Quiz/blob/master/assets/Untitled_%20Aug%2016%2C%202020%206_06%20PM.gif)
 
 ### Link
 
